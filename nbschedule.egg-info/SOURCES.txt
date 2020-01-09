@@ -1,0 +1,10 @@
+LICENSE
+MANIFEST.in
+setup.py
+nbschedule/__init__.py
+nbschedule/utils.py
+nbschedule/version.py
+nbschedule.egg-info/PKG-INFO
+nbschedule.egg-info/SOURCES.txt
+nbschedule.egg-info/dependency_links.txt
+nbschedule.egg-info/top_level.txt

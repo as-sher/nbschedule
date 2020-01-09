@@ -4,27 +4,17 @@ import sys
 
 _here = os.path.abspath(os.path.dirname(__file__))
 
-if sys.version_info[0] < 3:
-    with open(os.path.join(_here, 'README.rst')) as f:
-        long_description = f.read()
-else:
-    with open(os.path.join(_here, 'README.rst'), encoding='utf-8') as f:
-        long_description = f.read()
-
 version = {}
-with open(os.path.join(_here, 'somepackage', 'version.py')) as f:
+with open(os.path.join(_here, 'nbschedule', 'version.py')) as f:
     exec(f.read(), version)
 
 setup(
-    name='somepackage',
+    name='nbschedule',
     version=version['__version__'],
-    description=('Show how to structure a Python project.'),
-    long_description=long_description,
-    author='Bruce Wayne',
-    author_email='bruce.wayne@example.com',
-    url='https://github.com/bast/somepackage',
+    description=('operators for scheduling notebook'),
+    long_description='notebook scheduler',
     license='MPL-2.0',
-    packages=['somepackage'],
+    packages=['nbschedule'],
 #   no dependencies in this example
 #   install_requires=[
 #       'dependency==1.2.3',
