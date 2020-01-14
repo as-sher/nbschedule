@@ -15,7 +15,7 @@ def run(job, reports, working_dir=None):
         # using papermill and the report's individual
         # parameters and configuration
         papermilled = run_papermill(rep['meta']['notebook'],
-                                    rep['meta']['notebook_text'],
+                                    job['meta']['notebook_text'],
                                     rep['meta']['parameters'],
                                     rep['meta']['strip_code'],
                                     rep['meta']['output_path'],
