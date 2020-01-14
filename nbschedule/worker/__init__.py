@@ -6,7 +6,7 @@ from ._nbconvert import run as run_nbconvert  # noqa: F401
 from ._papermill import run as run_papermill  # noqa: F401
 
 def run(job, reports, working_dir=None):
-    logging.critical('Calling run on job - %s' % str(job.id))
+    logging.critical('Calling run on job - %s' % str(job))
     for rep in reports:
         # type is "convert" for nbconversion jobs and "publish" for publish jobs
         type = rep.meta.type
