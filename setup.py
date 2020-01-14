@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 import sys
 
@@ -14,7 +14,7 @@ setup(
     description=('operators for scheduling notebook'),
     long_description='notebook scheduler',
     license='MPL-2.0',
-    packages=['nbschedule'],
+    packages=find_packages(),
 #   no dependencies in this example
 #   install_requires=[
 #       'dependency==1.2.3',

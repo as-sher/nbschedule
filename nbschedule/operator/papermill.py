@@ -12,7 +12,7 @@ class PapermillOperator(BaseOperator):
     def execute(self, context):
         self.log.critical('papermill')
 
-        from ..worker import run_papermill
+        from nbschedule.worker import run_papermill
         ret = run_papermill(self.report['meta']['notebook'],
                             self.report['meta']['notebook_text'],
                             self.report['meta']['parameters'],
