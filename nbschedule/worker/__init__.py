@@ -17,4 +17,6 @@ def run(job, reports, working_dir=None):
         papermilled = run_papermill(rep.meta.notebook.name,
                                     rep.meta.notebook.meta.notebook,
                                     rep.meta.parameters,
-                                    rep.meta.strip_code)
+                                    rep.meta.strip_code,
+                                    rep.meta.output_path,
+                                    rep.id)
