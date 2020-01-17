@@ -17,6 +17,5 @@ def run(notebook_name, notebook_text, parameters_list, strip_code, output_path, 
         papermilled = run_papermill(notebook_name,
                                     notebook_text,
                                     parameters,
-                                    strip_code,
                                     output_path,
                                     i)
