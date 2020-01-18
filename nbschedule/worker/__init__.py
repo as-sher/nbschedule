@@ -9,12 +9,12 @@ from base64 import b64decode
 
 def run(job_json, working_dir=None):
 
-    parsed_json = json.loads(b64decode(job_json).decode('utf-8'))
+    notebook_json = json.loads(b64decode(job_json).decode('utf-8'))
 
-    notebook_name = parsed_json['name']
-    notebook_text = parsed_json['notebook_text']
-    parameters_list = parsed_json['parameters_list']
-    output_path = parsed_json['output_path']
+    notebook_name = notebook_json['name']
+    notebook_text = notebook_json['notebook_text']
+    parameters_list = notebook_json['parameters_list']
+    output_path = notebook_json['output_path']
     logging.critical('Calling run on job - %s' % notebook_name)
     for i, parameters in enumerate(parameters_list, start=1):
         # type is "convert" for nbconversion jobs and "publish" for publish jobs
