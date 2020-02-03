@@ -15,14 +15,14 @@ def run(job_json, working_dir=None):
     notebook_text = notebook_json['notebook_text']
     parameters_list = notebook_json['parameters_list']
     output_path = notebook_json['output_path']
-
+    
     logging.critical('Executing notebook - %s' % notebook_name)
-
-
+    
+  
     for i, parameters in enumerate(parameters_list, start=1):
-        papermilled = run_papermill(notebook_name,
-                                    notebook_text,
-                                    parameters,
-                                    False,
-                                    output_path,
-                                    i)
+        run_papermill(notebook_name,
+                      notebook_text,
+                      parameters,
+                      False,
+                      output_path,
+                      i)

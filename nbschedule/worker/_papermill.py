@@ -4,6 +4,8 @@ import os.path
 import nbformat
 from six import string_types
 from papermill import execute_notebook
+from ._kernel import Kernel
+
 try:
     from tempfile import TemporaryDirectory
 except ImportError:
@@ -20,6 +22,16 @@ def run(nb_name, nb_text, parameters, hide_input, out_path, report_id):
         hide_input (boolean): hide code
     '''
     # validation for papermill
+    kernel_name = json.loads(nb_text)['metadata']['kernelspec']['name']
+    print(kernel_name)
+    kernel = Kernel()
+    if kernel_name == 'python3':
+        kernel.install_ipykernel()
+    elif kernel_name == 'pysparkkernel':
+        kernel.install_pyspark_kernel()
+    elif kernel_name == 'sparkkernel':
+        kernel.install_spark_kernel()
+
     nb = nbformat.reads(nb_text, 4)
 
     with TemporaryDirectory() as tempdir:
