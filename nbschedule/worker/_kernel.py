@@ -22,5 +22,5 @@ class Kernel():
         print('done')
 
     def install_ipykernel(self):
-        print("installing")
+        install(user=True)
         print('done')
