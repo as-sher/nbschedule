@@ -28,7 +28,7 @@ def run(nb_name, nb_text, parameters, hide_input, out_path, execution_details,re
     print("the kernel name is ")
     print(kernel_name)
     kernel = Kernel()
-    if kernel_name == 'python3':
+    if (kernel_name == 'python3' or kernel_name == 'python'):
         kernel.install_ipykernel()
     elif kernel_name == 'pysparkkernel':
         kernel.install_pyspark_kernel()
