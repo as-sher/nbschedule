@@ -46,7 +46,8 @@ def run(nb_name, nb_text, parameters, hide_input, out_path, execution_details,re
         raise ValueError('execution details required')
 
 
-    nb = remote_magic.add_execution_details(nb_text,execution_details,'{}_{}'.format(nb_name,report_id))
+    if (kernel_name == 'pysparkkernel' or kernel_name == 'sparkkernel'):
+        nb = remote_magic.add_execution_details(nb_text,execution_details,'{}_{}'.format(nb_name,report_id))
     # nb = nbformat.reads(json.dumps(nb_text), 4)
     print("the value for nb is :-{}".format(nb))
 
