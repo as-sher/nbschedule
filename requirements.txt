@@ -1,4 +1,8 @@
 pytest
 pycodestyle
 apache-airflow
+mysqlclient
 json
+git+https://github.com/as-sher/sparkmagic.git#subdirectory=hdijupyterutils
+git+https://github.com/as-sher/sparkmagic.git#subdirectory=autovizwidget
+git+https://github.com/as-sher/sparkmagic.git#subdirectory=sparkmagic
