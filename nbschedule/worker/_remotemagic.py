@@ -10,6 +10,7 @@ def get_execution_conf(execution_details,session_name,kernel_name):
         language = "python"
     else:
         language = "scala"
+    print("the language is {}".format(language))
     ext_conf = "%spark encoded -s {} -l {} -f {}".format(session_name,language,encoded_conf.decode("utf-8"))
     conf = "{\"execution_count\": null, \"cell_type\": \"code\", \"source\": [\"%s\",\"%s\"], \"outputs\": [], \"metadata\": {}}"%(r"%load_ext sparkmagic.magics\n",ext_conf)
     execution_conf = json.loads(conf)
