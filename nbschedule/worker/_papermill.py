@@ -68,7 +68,7 @@ def run(nb_name, nb_text, parameters, hide_input, out_path, execution_details,re
         print("executing notebook")
         execute_notebook(in_file, out_file, parameters=parameters, report_mode=hide_input, start_timeout=600)
 
-        with open(out_file, 'r') as fp:
-            output_text = fp.read().encode('utf-8')
+        with open(out_file, 'r',encoding="utf-8")as fp:
+            output_text = fp.read()
 
     return output_text
