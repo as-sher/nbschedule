@@ -13,7 +13,7 @@ except ImportError:
     from backports.tempfile import TemporaryDirectory
 
 
-def run(nb_name, nb_text, parameters, hide_input, out_path, execution_details,report_id):
+def run(nb_name,input_path, nb_text, parameters, hide_input, out_path, execution_details,report_id):
     '''Run the notebook and return the text
 
     Args:
@@ -24,51 +24,55 @@ def run(nb_name, nb_text, parameters, hide_input, out_path, execution_details,re
     '''
     # validation for papermill
     # kernel_name = json.loads(nb_text)['metadata']['kernelspec']['name']
-    kernel_name = (nb_text)['metadata']['kernelspec']['name']
-    print("the kernel name is ")
-    print(kernel_name)
-    kernel = Kernel()
-    if (kernel_name == 'python3' or kernel_name == 'python'):
-        kernel.install_ipykernel()
-    elif kernel_name == 'pysparkkernel':
-        kernel.install_pyspark_kernel()
-    elif kernel_name == 'sparkkernel':
-        kernel.install_spark_kernel()
-
-
-    ##add support for executing remote notebooks.
-    ##add check for execution details.
-
-    remote_magic = Remotemagic()
-    print(kernel_name)
-
-    if (kernel_name == 'pysparkkernel' or kernel_name == 'sparkkernel') and execution_details is None:
-        raise ValueError('execution details required')
-
-
-    if (kernel_name == 'pysparkkernel' or kernel_name == 'sparkkernel'):
-        nb = remote_magic.add_execution_details(nb_text,execution_details,'{}_{}'.format(nb_name,report_id))
+    output_text = None
+    if len(input_path) != 0:
+        execute_notebook(input_path, out_path, parameters=parameters, report_mode=hide_input, start_timeout=600)
     else:
-        nb = nbformat.reads(json.dumps(nb_text),4)
-    # nb = nbformat.reads(json.dumps(nb_text), 4)
-    print("the value for nb is :-{}".format(nb))
-
-    print("the cells are :- {}".format(nb['cells']))
-
-    with TemporaryDirectory() as tempdir:
-        in_file = os.path.join(tempdir, '{}.ipynb'.format(nb_name))
-        out_file = os.path.join(out_path, '{}_report_{}_out.ipynb'.format(nb_name,report_id))
-
-        nbformat.write(nb, in_file)
-
+        kernel_name = (nb_text)['metadata']['kernelspec']['name']
+        print("the kernel name is ")
+        print(kernel_name)
+        kernel = Kernel()
+        if (kernel_name == 'python3' or kernel_name == 'python'):
+            kernel.install_ipykernel()
+        elif kernel_name == 'pysparkkernel':
+            kernel.install_pyspark_kernel()
+        elif kernel_name == 'sparkkernel':
+            kernel.install_spark_kernel()
 
 
-        if isinstance(parameters, string_types):
-            parameters = json.loads(parameters)
-        print("executing notebook")
-        execute_notebook(in_file, out_file, parameters=parameters, report_mode=hide_input, start_timeout=600)
+        ##add support for executing remote notebooks.
+        ##add check for execution details.
 
-        with open(out_file, 'r',encoding="utf-8")as fp:
-            output_text = fp.read()
+        remote_magic = Remotemagic()
+        print(kernel_name)
+
+        if (kernel_name == 'pysparkkernel' or kernel_name == 'sparkkernel') and execution_details is None:
+            raise ValueError('execution details required')
+
+
+        if (kernel_name == 'pysparkkernel' or kernel_name == 'sparkkernel'):
+            nb = remote_magic.add_execution_details(nb_text,execution_details,'{}_{}'.format(nb_name,report_id))
+        else:
+            nb = nbformat.reads(json.dumps(nb_text),4)
+        # nb = nbformat.reads(json.dumps(nb_text), 4)
+        print("the value for nb is :-{}".format(nb))
+
+        print("the cells are :- {}".format(nb['cells']))
+
+        with TemporaryDirectory() as tempdir:
+            in_file = os.path.join(tempdir, '{}.ipynb'.format(nb_name))
+            out_file = os.path.join(out_path, '{}_report_{}_out.ipynb'.format(nb_name,report_id))
+
+            nbformat.write(nb, in_file)
+
+
+
+            if isinstance(parameters, string_types):
+                parameters = json.loads(parameters)
+            print("executing notebook")
+            execute_notebook(in_file, out_file, parameters=parameters, report_mode=hide_input, start_timeout=600)
+
+            with open(out_file, 'r',encoding="utf-8")as fp:
+                output_text = fp.read()
 
     return output_text

@@ -14,6 +14,7 @@ def run(job_json):
     notebook_json = json.loads(b64decode(job_json).decode('utf-8'))
 
     notebook_name = notebook_json['name']
+    input_path = notebook_json['input_path']
     notebook_text = notebook_json['notebook_text']
     parameters_list = notebook_json['parameters_list']
     output_path = notebook_json['output_path']
@@ -29,6 +30,7 @@ def run(job_json):
 
     if len(parameters_list) == 0:
         papermilled = run_papermill(notebook_name,
+                                    input_path,
                                     notebook_text,
                                     "{}",
                                     False,
@@ -43,6 +45,7 @@ def run(job_json):
             # using papermill and the report's individual
             # parameters and configuration
             papermilled = run_papermill(notebook_name,
+                                        input_path,
                                         notebook_text,
                                         parameters,
                                         False,
